@@ -2,49 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Troy's Dev Toolkit</title>
-  <meta name="description" content="A zero-dependency toolbox for everyday developer tasks. Runs 100% in your browser.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Troy's Toolbox — Free, Private, In-Browser Tools</title>
+  <meta name="description" content="A growing collection of free, private, zero-install tools that run entirely in your browser. First up: SnapPDF — turn photos into a shareable PDF without uploading a thing.">
+  <meta name="author" content="TechTroyAi">
+  <meta name="theme-color" content="#131316">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Troy's Toolbox">
+  <meta property="og:title" content="Troy's Toolbox — Free, Private, In-Browser Tools">
+  <meta property="og:description" content="Tiny tools, serious craftsmanship. Everything runs on your device — no sign-up, no uploads, no tracking.">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
+  <a class="skip-link" href="#view">Skip to content</a>
+
+  <!-- Mobile top bar (visible ≤ 980px) -->
+  <div class="mobile-topbar">
+    <button class="hamburger" id="hamburger" aria-label="Toggle side panel" aria-controls="sidebar" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#241F44"/><path fill="#BDB1FF" d="M32 10.5l4.9 14.9 14.9 4.9-14.9 4.9L32 50.1l-4.9-14.9-14.9-4.9 14.9-4.9L32 10.5z"/></svg>
+    <span class="mt-name">Troy's Toolbox</span>
+  </div>
+  <div class="backdrop" id="backdrop" aria-hidden="true"></div>
+
   <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">⚡</div>
-        <div>
-          <h1>Troy's Dev Toolkit</h1>
-          <p class="tagline">Snappy tools, zero baggage</p>
+    <!-- ══════════ SIDE PANEL ══════════ -->
+    <aside class="sidebar" id="sidebar" aria-label="Side panel">
+      <a class="brand" href="#/" aria-label="Troy's Toolbox — home">
+        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="Troy's Toolbox logo">
+          <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7E6DFB"/><stop offset="1" stop-color="#5540E5"/></linearGradient></defs>
+          <rect width="64" height="64" rx="15" fill="url(#sg)"/>
+          <path fill="#fff" d="M32 10.5l4.9 14.9 14.9 4.9-14.9 4.9L32 50.1l-4.9-14.9-14.9-4.9 14.9-4.9L32 10.5z"/>
+        </svg>
+        <span>
+          <span class="brand-name">Troy's Toolbox</span>
+          <span class="brand-tag">Tiny tools · Zero baggage</span>
+        </span>
+      </a>
+
+      <div class="side-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="sideSearch" type="search" placeholder="Search tools…" autocomplete="off" spellcheck="false" aria-label="Search tools">
+        <kbd>/</kbd>
+      </div>
+
+      <div class="side-label"><span>Menu</span></div>
+      <nav class="side-nav" aria-label="Pages">
+        <a class="nav-item" href="#/" data-route="overview">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-8 9 8"/><path d="M6 10.5V21h12v-10.5"/></svg></span>
+          <span class="nav-text"><span class="nav-name">Overview</span><span class="nav-desc">Home base &amp; featured tool</span></span>
+        </a>
+        <a class="nav-item" href="#/tools" data-route="tools">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg></span>
+          <span class="nav-text"><span class="nav-name">All Tools</span><span class="nav-desc">Everything in the collection</span></span>
+        </a>
+        <a class="nav-item" href="#/about" data-route="about">
+          <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="7.6" r=".5" fill="currentColor"/></svg></span>
+          <span class="nav-text"><span class="nav-name">About</span><span class="nav-desc">Why this exists · how it works</span></span>
+        </a>
+      </nav>
+
+      <div class="side-label"><span>Tools</span><span class="count" id="toolCount">1 live</span></div>
+      <nav class="side-nav" id="toolNav" aria-label="Tools"><!-- rendered by app.js --></nav>
+
+      <div class="side-foot">
+        <div class="side-privacy">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg>
+          <p><strong>Private by design.</strong> Every tool runs on your device. Nothing is uploaded, logged or tracked.</p>
+        </div>
+        <div class="side-links">
+          <a href="https://github.com/TechTroyAi/Coding-Projects" target="_blank" rel="noopener">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            Source on GitHub
+          </a>
+          <a href="#/about">MIT License</a>
         </div>
       </div>
-
-      <div class="search-wrap">
-        <input id="tool-search" type="search" placeholder="Search tools…  ( / )" autocomplete="off" spellcheck="false">
-      </div>
-
-      <nav id="tool-nav" aria-label="Tools"></nav>
-
-      <footer class="sidebar-footer">
-        <span id="tool-count">0 tools</span>
-        <span class="dot">·</span>
-        <a href="https://github.com/TechTroyAi/Test" target="_blank" rel="noopener">GitHub</a>
-        <span class="dot">·</span>
-        <span>0 deps</span>
-      </footer>
     </aside>
 
-    <main id="main">
-      <header class="tool-header">
-        <h2 id="tool-title"></h2>
-        <p id="tool-desc"></p>
-      </header>
-      <section id="tool-panel" class="panel"></section>
-    </main>
+    <!-- ══════════ VIEWS (rendered into #view) ══════════ -->
+    <main class="main" id="view" tabindex="-1" aria-live="polite"></main>
   </div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>
+    <div style="padding:40px; text-align:center; font-family:sans-serif">
+      <h1>Troy's Toolbox needs JavaScript</h1>
+      <p>This site is a collection of interactive in-browser tools, so it needs JavaScript to run — but it still sends nothing anywhere.</p>
+      <p><a href="tools/snappdf/index.html">Open SnapPDF directly →</a></p>
+    </div>
+  </noscript>
 
-  <script src="app.js"></script>
+  <script src="assets/js/app.js" defer></script>
 </body>
 </html>

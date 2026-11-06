@@ -1,0 +1,12 @@
+{
+  "name": "Troy's Toolbox",
+  "short_name": "Troy's Toolbox",
+  "description": "A growing collection of free, private, in-browser tools for developers and everyday makers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#131316",
+  "theme_color": "#131316",
+  "icons": [
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

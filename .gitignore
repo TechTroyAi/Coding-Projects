@@ -1,0 +1,11 @@
+# Dependencies & tooling
+node_modules/
+.vercel
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,64 +1,87 @@
-# ⚡ Troy's Dev Toolkit
+# ⚡ Troy's Toolbox
 
-A **zero-dependency** toolbox for everyday developer tasks. No frameworks, no build step,
-no tracking — just plain HTML/CSS/JS that runs 100% in your browser.
+**Tiny tools, serious craftsmanship.** A growing collection of single-purpose HTML tools that run **100% in your browser** — no accounts, no installs, no uploads, no tracking.
 
-## 🚀 Quick start
+**First tool:** [SnapPDF — Photos to PDF](tools/snappdf/index.html) · live inside the toolbox at `/` → *Launch SnapPDF*.
 
-**Option 1** — double-click `index.html`. That's it.
+---
 
-**Option 2** — serve it locally:
+## 🚀 Run it locally
+
+It's a static site — pick any of these:
 
 ```bash
-npx serve .
-# or
-python3 -m http.server 8000
+npm run preview        # python3 -m http.server 3000
+# or: npx serve .
+# or: just open index.html
 ```
 
-## 🧰 The tools
+## 🗂️ Structure
 
-| Tool | What it does |
-|---|---|
-| 🧾 **JSON Formatter** | Beautify, minify & validate JSON with syntax highlighting |
-| 🔐 **Base64 Encode / Decode** | Unicode-safe conversion (emoji included) |
-| 🔗 **URL Encode / Decode** | Component or full-URI percent-encoding |
-| #️⃣ **Hash Generator** | Live SHA-1 / SHA-256 / SHA-384 / SHA-512 digests |
-| 🆔 **UUID Generator** | Bulk RFC 4122 v4 UUIDs via `crypto.getRandomValues` |
-| ⏱️ **Timestamp Converter** | Live clock + unix ↔ ISO ↔ human ↔ relative time |
-| 🔤 **Case Converter** | camel / Pascal / snake / kebab / constant / title … |
-| 🔑 **Password Generator** | Crypto-random passwords with entropy strength meter |
-| 🎨 **Color Studio** | HEX ↔ RGB ↔ HSL, live preview, click-to-copy shades |
-| 📝 **Lorem Ipsum** | Placeholder text by paragraphs, sentences or words |
+```
+.
+├── index.html              # App shell — sidebar, router, views
+├── 404.html                # Branded not-found page
+├── assets/
+│   ├── css/main.css        # "Ink & Iris" design system
+│   ├── js/app.js           # Tool registry + hash router (zero deps)
+│   └── img/favicon.svg     # Logo / favicon
+├── tools/
+│   └── snappdf/index.html  # Tool Nº 001 — Photos → PDF (self-contained)
+├── vercel.json             # Static hosting config + security headers
+└── manifest.webmanifest    # PWA-ish metadata
+```
 
-## ⌨️ Shortcuts
+## 🎨 Design — “Ink & Iris”
 
-- `/` — focus the tool search
-- `Esc` — clear search
+Minimalist palette: warm paper background (`#F6F6F3`), deep-ink sidebar (`#131316`), a single iris accent (`#6C55F5`), hairline borders, soft layered shadows, Inter + JetBrains Mono. Dark sidebar / light canvas keeps it slick without shouting.
 
-## 🛠️ Adding a tool
+## ➕ Adding a tool
 
-Open [`app.js`](app.js) and add an object to the `TOOLS` array:
+1. Create `tools/<slug>/index.html` — self-contained is preferred (no build step).
+2. Register it in the `TOOLS` array in [`assets/js/app.js`](assets/js/app.js):
 
 ```js
 {
-  id: 'slug',                    // unique id (used in the URL hash)
-  name: 'Slug Generator',        // shown in sidebar + header
-  icon: '🐛',                    // any emoji
-  desc: 'Turn titles into URL slugs.',
-  keywords: 'slug url seo',      // used by search
-  render: () => `<div class="tool-card">…</div>`,
-  init(root, ctx) {
-    // wire up events; root is the #tool-panel element.
-    // ctx.onCleanup(fn) runs when the user switches tools.
-  },
+  id: 'my-tool',
+  name: 'My Tool',
+  tagline: 'One-line pitch',
+  desc: 'What it does and why it respects your privacy.',
+  category: 'Utilities',        // PDF · Text · Design · Utilities
+  status: 'live',               // or 'soon' to show a ghost card
+  keywords: 'search terms',
+  src: 'tools/my-tool/index.html',
+  glyph: ICONS.spark,           // any inline SVG icon
 }
 ```
 
-The nav, routing (`#slug` deep links), search and copy-to-clipboard are all automatic.
+The sidebar, grid, search, category filters and `/tool/my-tool` route are all wired automatically.
+
+## ⌨️ Shortcuts
+
+| Key | Action |
+|---|---|
+| `/` | Focus the tool search (opens the side panel on mobile) |
+| `Esc` | Clear search/filters · leave the tool runner |
+
+## ☁️ Deploy to Vercel
+
+This repo is deploy-ready static output (no build command, no framework). Two options:
+
+**A. Git push (recommended):** import the repo at [vercel.com/new](https://vercel.com/new) — framework preset **Other**, no build command, output directory **root**. Every push to `main` auto-deploys.
+
+**B. CLI:**
+
+```bash
+npx vercel
+npx vercel --prod
+```
+
+`vercel.json` ships sane defaults: clean URLs, `SAMEORIGIN` framing (the toolbox iframes its own tools), `nosniff`, `no-referrer`-ish policy and cache headers for assets.
 
 ## 🔒 Privacy
 
-Everything runs locally in your browser. No network requests, no analytics, nothing leaves your machine.
+Nothing leaves your device. No analytics, no cookies, no server-side processing — verify it yourself by reading the source.
 
 ## 📄 License
 

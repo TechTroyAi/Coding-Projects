@@ -380,14 +380,6 @@ img { max-width: 100%; }
 .ondevice i { width: 5px; height: 5px; background: var(--ok); border-radius: 50%; }
 
 .runner-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.icon-btn {
-  width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px;
-  border: 1px solid var(--border-strong); background: var(--surface); color: var(--ink-soft);
-  cursor: pointer; text-decoration: none; box-shadow: var(--shadow-sm); transition: all .15s ease;
-}
-.icon-btn:hover { color: var(--iris-deep); border-color: var(--iris); transform: translateY(-1px); }
-.icon-btn svg { width: 17px; height: 17px; stroke: currentColor; }
-
 .runner-frame {
   position: relative; flex: 1; margin: clamp(12px, 2vw, 20px);
   border: 1px solid var(--border-strong); border-radius: var(--radius-lg);
@@ -582,7 +574,6 @@ html.large-text body { zoom: 1.24; }
 .how-step p { margin: 0; font-size: 0.78rem; color: var(--ink-soft); line-height: 1.5; }
 
 /* Runner — big labeled actions (never icon-only) */
-.icon-btn { width: 46px; height: 46px; }
 .back-btn { height: 46px; font-size: 0.88rem; padding: 0 18px 0 13px; }
 .runner-btn {
   display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 16px;
@@ -626,3 +617,33 @@ html.large-text .font-toggle .ft-state { color: #34D399; border-color: rgba(52,2
 @media (max-width: 560px) {
   .how-step { padding: 14px 16px; }
 }
+
+/* ============================================================
+   UTILITIES — single-purpose helpers (no inline styles in markup)
+   ============================================================ */
+.tools-head { margin-top: -6px; }
+.tools-title { font-size: 28px; }
+.view-lede { margin: -6px 0 18px; max-width: 60ch; }
+.label-tight { margin-bottom: 4px; }
+.label-gap { margin-bottom: 12px; }
+
+.about-cta { margin-top: 26px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.about-cta-body { flex: 1; min-width: 240px; }
+.about-cta-text { margin: 6px 0 0; font-size: 12.5px; color: var(--ink-soft); }
+
+.notfound { text-align: center; padding-top: 80px; }
+.notfound-title { font-size: 38px; }
+.notfound-lede { margin: 14px auto 24px; }
+.cta-center { justify-content: center; }
+
+/* Tool-card / section arrows sized here, not via markup attributes */
+.tool-open svg { width: 14px; height: 14px; stroke: currentColor; }
+.section-link svg { width: 13px; height: 13px; stroke: currentColor; }
+.btn svg { width: 18px; height: 18px; }
+.btn-sm svg { width: 15px; height: 15px; }
+.runner-mark svg { stroke: #FFFFFF; }
+.page-404 { display: grid; place-items: center; min-height: 100dvh; }
+.notfound-404 { max-width: 560px; padding: 40px 20px; }
+.brand-mark-lg { width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 15px; }
+.nonlocal-404 { color: var(--ink-soft); }
+.noscript-box { padding: 40px; text-align: center; font-family: var(--sans); }

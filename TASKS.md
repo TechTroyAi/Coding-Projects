@@ -33,6 +33,18 @@ What's finished, and what's waiting on you. Updated: 2026-11-06.
 - [x] This task list
 - [x] PR #3 merged to `main`
 
+### Code quality pass (PR #4)
+- [x] `icon()` helper — killed magic-string `replace()` call sites
+- [x] Palette `stroke` restored on all icons (one was silently missing it)
+- [x] Search & filter state survives refresh (sessionStorage)
+- [x] All inline `style=` attributes removed — none in markup anymore
+- [x] Dead CSS (`.icon-btn`) removed; single-purpose utility classes instead
+- [x] CSP `<meta>` in `index.html` — only the origins the page actually uses
+- [x] `aria-live` removed from `<main>` (focus management already handles it)
+- [x] `color-scheme: light` — no accidental browser auto-darkening
+- [x] `npm test` — jsdom smoke suite committed in `tests/` (routes, runner, a11y)
+- [x] SnapPDF tool hardened: `referrer: no-referrer`, `theme-color`
+
 ## ⏳ Waiting on you (all free, ~10 minutes)
 
 - [ ] **Rename the free URL** — vercel.com → project → Settings → General → Project Name (e.g. `troystoolbox`) — `$0`

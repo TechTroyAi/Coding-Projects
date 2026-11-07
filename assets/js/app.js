@@ -12,7 +12,7 @@ const ICONS = {
   image:
     '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4.5 18l5-5 4 4 3.2-3.2L21 18.5"/></svg>',
   palette:
-    '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.2" cy="10.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="11" cy="7.2" r="1.05" fill="currentColor" stroke="none"/><circle cx="15" cy="7.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="17.6" cy="11.2" r="1.05" fill="currentColor" stroke="none"/><path d="M12 21a9 9 0 0 0 8.7-6.9c-2 .6-3.9-.6-4.3-2.6-.3-1.7 1-3.4 2.7-3.9A9 9 0 1 0 12 21z"/></svg>',
+    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.2" cy="10.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="11" cy="7.2" r="1.05" fill="currentColor" stroke="none"/><circle cx="15" cy="7.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="17.6" cy="11.2" r="1.05" fill="currentColor" stroke="none"/><path d="M12 21a9 9 0 0 0 8.7-6.9c-2 .6-3.9-.6-4.3-2.6-.3-1.7 1-3.4 2.7-3.9A9 9 0 1 0 12 21z"/></svg>',
   qr:
     '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h1M18.5 18.5H21V21"/></svg>',
   markdown:
@@ -42,6 +42,10 @@ const ICONS = {
   github:
     '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-1.03-.01-1.86-2.51.46-3.16-.61-3.35-1.17-.11-.28-.6-1.17-1.03-1.41-.35-.19-.86-.66-.01-.67.8-.01 1.36.73 1.55 1.03.9 1.52 2.34 1.1 2.91.84.09-.65.35-1.1.63-1.35-2.22-.25-4.56-1.11-4.56-4.94 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>',
 };
+
+/* Single, reliable way to size an inline icon */
+const icon = (name, size = 18) =>
+  ICONS[name].replace('<svg ', '<svg width="' + size + '" height="' + size + '" ');
 
 /* ────────────────────────────────────────────
    TOOL REGISTRY — add new tools here
@@ -93,7 +97,21 @@ const TOOLS = [
 ];
 
 const CATEGORIES = ['All', 'PDF', 'Text', 'Design', 'Utilities'];
-const state = { q: '', cat: 'All' };
+const state = (() => {
+  try {
+    const raw = sessionStorage.getItem('tt-filters');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.q === 'string' && typeof parsed.cat === 'string') {
+        return { q: parsed.q, cat: CATEGORIES.includes(parsed.cat) ? parsed.cat : 'All' };
+      }
+    }
+  } catch (e) { /* private mode / disabled storage */ }
+  return { q: '', cat: 'All' };
+})();
+function persistFilters() {
+  try { sessionStorage.setItem('tt-filters', JSON.stringify(state)); } catch (e) { /* ignore */ }
+}
 const GITHUB_REPO = 'https://github.com/TechTroyAi/Coding-Projects';
 const ISSUES_URL = GITHUB_REPO + '/issues/new';
 
@@ -190,7 +208,7 @@ function toolCard(t) {
         '<h3 class="tool-name">' + esc(t.name) + '</h3>' +
         '<p class="tool-desc">' + esc(t.desc) + '</p>' +
         '<span class="tool-foot"><span class="tool-cat">' + esc(t.category) + '</span>' +
-          '<span class="tool-open">Launch ' + ICONS.arrowRight.replace('viewBox', 'width="14" height="14" viewBox') + '</span>' +
+          '<span class="tool-open">Launch ' + icon('arrowRight', 14) + '</span>' +
         '</span>' +
       '</a>'
     );
@@ -287,7 +305,7 @@ function viewOverview() {
 
       '<div class="section-head">' +
         '<div><div class="section-label">The Collection</div><h2 class="section-title">All tools</h2></div>' +
-        '<a class="section-link" href="#/tools">See all ' + counts().total + ' tools ' + ICONS.arrowRight.replace('viewBox', 'width="13" height="13" viewBox') + '</a>' +
+        '<a class="section-link" href="#/tools">See all ' + counts().total + ' tools ' + icon('arrowRight', 13) + '</a>' +
       '</div>' +
       gridHTML(visibleTools()) +
 
@@ -309,19 +327,19 @@ function viewTools() {
   return (
     '<div class="content">' +
       crumbRow('All Tools') +
-      '<div class="section-head" style="margin-top:-6px">' +
-        '<div><div class="section-label">The Collection</div><h1 class="section-title" style="font-size:28px">All tools</h1></div>' +
+      '<div class="section-head tools-head">' +
+        '<div><div class="section-label">The Collection</div><h1 class="section-title tools-title">All tools</h1></div>' +
         '<span class="crumb-chip">' + counts().live + ' live · ' + (counts().total - counts().live) + ' coming</span>' +
       '</div>' +
-      '<p class="lede" style="margin:-6px 0 18px; max-width:60ch">Search the collection or filter by category. Every tool opens instantly — nothing to install.</p>' +
+      '<p class="lede view-lede">Search the collection or filter by category. Every tool opens instantly — nothing to install.</p>' +
       searchAndChipsHTML() +
       '<div id="gridSlot">' + gridHTML(visibleTools()) + '</div>' +
 
-      '<div class="about-card" style="margin-top:26px; display:flex; align-items:center; gap:18px; flex-wrap:wrap">' +
-        '<div style="flex:1; min-width:240px">' +
-          '<div class="section-label" style="margin-bottom:4px">Missing something?</div>' +
-          '<strong style="letter-spacing:-.01em">Request a tool — it might become Tool Nº 002.</strong>' +
-          '<p style="margin:6px 0 0; font-size:12.5px">Open an issue on the repo with what you need. Popular requests get built next.</p>' +
+      '<div class="about-card about-cta">' +
+        '<div class="about-cta-body">' +
+          '<div class="section-label label-tight">Missing something?</div>' +
+          '<strong>Request a tool — it might become Tool Nº 002.</strong>' +
+          '<p class="about-cta-text">Open an issue on the repo with what you need. Popular requests get built next.</p>' +
         '</div>' +
         '<a class="btn btn-ghost btn-sm" href="' + ISSUES_URL + '" target="_blank" rel="noopener">Request a tool ' + ICONS.external + '</a>' +
       '</div>' +
@@ -364,7 +382,7 @@ function viewToolRunner(tool) {
       '<div class="runner-bar">' +
         '<button class="back-btn" id="backHome" type="button" aria-label="Back to home">' + ICONS.arrowLeft + '<span>Back to home</span></button>' +
         '<div class="runner-meta">' +
-          '<span class="runner-mark" aria-hidden="true">' + tool.glyph.replace('viewBox', 'width="18" height="18" viewBox') + '</span>' +
+          '<span class="runner-mark" aria-hidden="true">' + tool.glyph.replace('<svg ', '<svg width="18" height="18" ') + '</span>' +
           '<span class="runner-name">' + esc(tool.name) + ' <span class="ondevice"><i></i>On-device</span></span>' +
         '</div>' +
         '<div class="runner-actions">' +
@@ -390,11 +408,11 @@ function viewToolRunner(tool) {
    ──────────────────────────────────────────── */
 function viewNotFound() {
   return (
-    '<div class="content" style="text-align:center; padding-top:80px">' +
-      '<div class="section-label" style="margin-bottom:12px">Error 404</div>' +
-      '<h1 class="section-title" style="font-size:38px">That page wandered off.</h1>' +
-      '<p class="lede" style="margin:14px auto 24px">The route you asked for doesn&rsquo;t exist — but the toolbox is right where you left it.</p>' +
-      '<div class="cta-row" style="justify-content:center">' +
+    '<div class="content notfound">' +
+      '<div class="section-label label-gap">Error 404</div>' +
+      '<h1 class="section-title notfound-title">That page wandered off.</h1>' +
+      '<p class="lede notfound-lede">The route you asked for doesn&rsquo;t exist — but the toolbox is right where you left it.</p>' +
+      '<div class="cta-row cta-center">' +
         '<a class="btn btn-primary" href="#/">Back to home ' + ICONS.arrowRight + '</a>' +
         '<a class="btn btn-ghost" href="#/tools">Browse tools</a>' +
       '</div>' +
@@ -518,6 +536,7 @@ function bindClearFilters() {
     btn.addEventListener('click', () => {
       state.q = '';
       state.cat = 'All';
+      persistFilters();
       if (sideSearch) sideSearch.value = '';
       render();
     });
@@ -528,6 +547,7 @@ function bindToolsView() {
   if (input) {
     input.addEventListener('input', () => {
       state.q = input.value;
+      persistFilters();
       if (sideSearch) sideSearch.value = input.value;
       refreshGrid();
     });
@@ -535,6 +555,7 @@ function bindToolsView() {
   document.querySelectorAll('[data-cat]').forEach((chip) => {
     chip.addEventListener('click', () => {
       state.cat = chip.getAttribute('data-cat');
+      persistFilters();
       document.querySelectorAll('[data-cat]').forEach((c) => c.classList.toggle('active', c === chip));
       refreshGrid();
     });
@@ -595,6 +616,7 @@ function bindRunner(tool) {
 if (sideSearch) {
   sideSearch.addEventListener('input', () => {
     state.q = sideSearch.value;
+    persistFilters();
     const route = parseHash();
     if (route.name !== 'tools') {
       keepSidebarOpen = true;

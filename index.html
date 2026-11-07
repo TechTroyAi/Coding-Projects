@@ -7,6 +7,8 @@
   <meta name="description" content="A growing collection of free, private, zero-install tools that run entirely in your browser. First up: SnapPDF — turn photos into a shareable PDF without uploading a thing.">
   <meta name="author" content="TechTroyAi">
   <meta name="theme-color" content="#131316">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <link rel="manifest" href="manifest.webmanifest">
 
@@ -101,11 +103,11 @@
     </aside>
 
     <!-- ══════════ VIEWS (rendered into #view) ══════════ -->
-    <main class="main" id="view" tabindex="-1" aria-live="polite"></main>
+    <main class="main" id="view" tabindex="-1"></main>
   </div>
 
   <noscript>
-    <div style="padding:40px; text-align:center; font-family:sans-serif">
+    <div class="noscript-box">
       <h1>Troy's Toolbox needs JavaScript</h1>
       <p>This site is a collection of interactive in-browser tools, so it needs JavaScript to run — but it still sends nothing anywhere.</p>
       <p><a href="tools/snappdf/index.html">Open SnapPDF directly →</a></p>

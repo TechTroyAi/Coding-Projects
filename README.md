@@ -20,15 +20,18 @@ npm run preview        # python3 -m http.server 3000
 
 ```
 .
-├── index.html              # App shell — sidebar, router, views
+├── index.html              # App shell — sidebar, router, views (CSP hardened)
 ├── 404.html                # Branded not-found page
 ├── assets/
-│   ├── css/main.css        # "Ink & Iris" design system
-│   ├── js/app.js           # Tool registry + hash router (zero deps)
+│   ├── css/main.css        # "Ink & Iris" design system (senior-proof layer)
+│   ├── js/app.js           # Tool registry + hash router (zero runtime deps)
 │   └── img/favicon.svg     # Logo / favicon
 ├── tools/
 │   └── snappdf/index.html  # Tool Nº 001 — Photos → PDF (self-contained)
+├── tests/
+│   └── smoke.mjs           # jsdom smoke suite — every route + a11y wiring
 ├── vercel.json             # Static hosting config + security headers
+├── TASKS.md                # Finished vs waiting-on-you task list
 └── manifest.webmanifest    # PWA-ish metadata
 ```
 
@@ -56,6 +59,13 @@ Minimalist palette: warm paper background (`#F6F6F3`), deep-ink sidebar (`#13131
 ```
 
 The sidebar, grid, search, category filters and `/tool/my-tool` route are all wired automatically.
+
+## 🧪 Test
+
+```bash
+npm install     # once — pulls jsdom (dev-only; runtime stays dependency-free)
+npm test        # drives the SPA through routes/search/filters/runner/toggles
+```
 
 ## ⌨️ Shortcuts
 

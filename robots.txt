@@ -1,0 +1,6 @@
+# Troy's Toolbox — allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap will be added here once the final production URL is confirmed
+# (Google requires an absolute sitemap URL).

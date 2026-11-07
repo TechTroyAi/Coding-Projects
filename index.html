@@ -18,6 +18,9 @@
   <meta name="twitter:card" content="summary">
 
   <!-- Fonts -->
+  <script>/* Apply saved text size before first paint (avoids flash) */
+    try{if(localStorage.getItem('tt-large-text')==='1')document.documentElement.classList.add('large-text')}catch(e){}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -78,6 +81,11 @@
       <nav class="side-nav" id="toolNav" aria-label="Tools"><!-- rendered by app.js --></nav>
 
       <div class="side-foot">
+        <button class="font-toggle" id="fontToggle" type="button" aria-pressed="false" aria-label="Turn larger text on or off">
+          <span class="ft-aa" aria-hidden="true">Aa</span>
+          <span class="ft-text"><span class="ft-title">Larger text</span><span class="ft-sub">Makes the whole page easier to read</span></span>
+          <span class="ft-state" id="fontToggleState">Off</span>
+        </button>
         <div class="side-privacy">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg>
           <p><strong>Private by design.</strong> Every tool runs on your device. Nothing is uploaded, logged or tracked.</p>

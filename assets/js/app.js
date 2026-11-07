@@ -168,7 +168,7 @@ function crumbRow(section) {
   return (
     '<div class="crumb-row">' +
       '<div class="crumb">Toolbox <span aria-hidden="true">/</span> <b>' + esc(section) + '</b></div>' +
-      '<span class="crumb-chip"><i></i>All systems local</span>' +
+      '<span class="crumb-chip"><i></i>Runs on your device</span>' +
     '</div>'
   );
 }
@@ -254,6 +254,12 @@ function viewOverview() {
           '<span class="trust">' + ICONS.bolt + 'Zero install</span>' +
           '<span class="trust">' + ICONS.lock + 'No tracking</span>' +
         '</div>' +
+      '</section>' +
+
+      '<section class="how" aria-label="How it works — three steps">' +
+        '<div class="how-step"><span class="how-num" aria-hidden="true">1</span><span><h3>Pick a tool</h3><p>Choose one from the list — SnapPDF turns photos into a PDF.</p></span></div>' +
+        '<div class="how-step"><span class="how-num" aria-hidden="true">2</span><span><h3>Add your photos</h3><p>Drag them into the box, or tap to pick them from your device.</p></span></div>' +
+        '<div class="how-step"><span class="how-num" aria-hidden="true">3</span><span><h3>Get your PDF</h3><p>Press the big button — your PDF downloads. Nothing is uploaded.</p></span></div>' +
       '</section>' +
 
       '<article class="featured" aria-label="Featured tool: SnapPDF">' +
@@ -362,9 +368,9 @@ function viewToolRunner(tool) {
           '<span class="runner-name">' + esc(tool.name) + ' <span class="ondevice"><i></i>On-device</span></span>' +
         '</div>' +
         '<div class="runner-actions">' +
-          '<a class="icon-btn" href="' + esc(tool.src) + '" target="_blank" rel="noopener" title="Open tool in a new tab" aria-label="Open tool in a new tab">' + ICONS.newTab + '</a>' +
-          '<a class="icon-btn" href="' + esc(tool.original || tool.src) + '" target="_blank" rel="noopener" title="Original version (hosted on Catbox)" aria-label="Open original version hosted on Catbox">' + ICONS.external + '</a>' +
-          '<button class="icon-btn" id="fsToggle" type="button" title="Toggle fullscreen" aria-label="Toggle fullscreen" aria-pressed="false">' + ICONS.expand + '</button>' +
+          '<a class="runner-btn" href="' + esc(tool.src) + '" target="_blank" rel="noopener" title="Open this tool in its own tab">' + ICONS.newTab + '<span class="rb-label">New tab</span></a>' +
+          '<a class="runner-btn" href="' + esc(tool.original || tool.src) + '" target="_blank" rel="noopener" title="Open the original version, hosted on Catbox">' + ICONS.external + '<span class="rb-label">Original</span></a>' +
+          '<button class="runner-btn" id="fsToggle" type="button" title="Make the tool fill the whole screen" aria-pressed="false">' + ICONS.expand + '<span class="rb-label">Fill screen</span></button>' +
         '</div>' +
       '</div>' +
       '<div class="runner-frame" id="runnerFrame">' +
@@ -419,10 +425,14 @@ function parseHash() {
 
 function setActiveNav(name, toolId) {
   document.querySelectorAll('[data-route]').forEach((el) => {
-    el.classList.toggle('active', el.getAttribute('data-route') === name);
+    const on = el.getAttribute('data-route') === name;
+    el.classList.toggle('active', on);
+    if (on) el.setAttribute('aria-current', 'page'); else el.removeAttribute('aria-current');
   });
   document.querySelectorAll('[data-tool-nav]').forEach((el) => {
-    el.classList.toggle('active', el.getAttribute('data-tool-nav') === toolId);
+    const on = el.getAttribute('data-tool-nav') === toolId;
+    el.classList.toggle('active', on);
+    if (on) el.setAttribute('aria-current', 'page'); else el.removeAttribute('aria-current');
   });
 }
 
@@ -574,8 +584,8 @@ function bindRunner(tool) {
     fsChangeHandler = () => {
       const on = !!document.fullscreenElement;
       fsBtn.setAttribute('aria-pressed', String(on));
-      fsBtn.innerHTML = on ? ICONS.minimize : ICONS.expand;
-      fsBtn.title = on ? 'Exit fullscreen' : 'Toggle fullscreen';
+      fsBtn.innerHTML = (on ? ICONS.minimize : ICONS.expand) + '<span class="rb-label">' + (on ? 'Exit full screen' : 'Fill screen') + '</span>';
+      fsBtn.title = on ? 'Exit full screen' : 'Make the tool fill the whole screen';
     };
     document.addEventListener('fullscreenchange', fsChangeHandler);
   }
@@ -644,6 +654,26 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+/* Larger-text mode — one obvious switch in the side panel */
+const fontToggle = document.getElementById('fontToggle');
+const fontToggleState = document.getElementById('fontToggleState');
+function applyLargeText(on) {
+  document.documentElement.classList.toggle('large-text', on);
+  if (fontToggle) fontToggle.setAttribute('aria-pressed', String(on));
+  if (fontToggleState) fontToggleState.textContent = on ? 'On' : 'Off';
+  try { localStorage.setItem('tt-large-text', on ? '1' : '0'); } catch (e) { /* private mode */ }
+}
+(function initLargeText() {
+  let on = document.documentElement.classList.contains('large-text');
+  try { on = localStorage.getItem('tt-large-text') === '1'; } catch (e) { /* private mode */ }
+  applyLargeText(on);
+})();
+if (fontToggle) {
+  fontToggle.addEventListener('click', () => {
+    applyLargeText(!document.documentElement.classList.contains('large-text'));
+  });
+}
 
 /* Boot */
 renderToolNav();

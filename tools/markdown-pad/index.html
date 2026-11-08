@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f6f6f3">
+<title>Markdown Pad — Write Markdown, get HTML</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<style>
+:root{
+  --paper:#F6F6F3; --surface:#FFFFFF; --ink:#141417; --ink-soft:#3F4047; --faint:#595A62;
+  --border:#DEDED6; --iris:#6C55F5; --iris-deep:#5540E5; --iris-soft:#EFECFF; --iris-ink:#4630C8;
+  --ok:#146B41;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100dvh}
+:focus-visible{outline:3px solid var(--iris);outline-offset:3px;border-radius:6px}
+button{font:inherit;cursor:pointer}
+
+header{padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.brand-mark{width:30px;height:30px;border-radius:9px;background:var(--iris-soft);display:grid;place-items:center}
+.brand-mark svg{width:18px;height:18px;stroke:var(--iris-deep)}
+.private{font-size:11px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:7px 13px;display:inline-flex;align-items:center;gap:7px}
+.private i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+
+.hero{text-align:center;margin:4px 0 16px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--iris-deep);font-weight:600;margin-bottom:10px}
+h1{font-size:clamp(1.4rem,3.4vw,2rem);letter-spacing:-.03em;margin:0}
+.hero p{margin:6px 0 0;color:var(--ink-soft);font-size:13px}
+
+.toolbar{max-width:1280px;margin:0 auto;width:100%;padding:0 24px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.filename{flex:1;min-width:160px;height:40px;padding:0 13px;font-family:var(--mono);font-size:13px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--ink)}
+.filename:focus{outline:none;border-color:var(--iris);box-shadow:0 0 0 3px rgba(108,85,245,.18)}
+.stats{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.05em;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 13px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-weight:700;font-size:12px;color:var(--ink);transition:all .15s ease;white-space:nowrap}
+.btn:hover{border-color:var(--iris);color:var(--iris-deep)}
+.btn-primary{background:var(--iris);border-color:var(--iris);color:#fff}
+.btn-primary:hover{background:var(--iris-deep);color:#fff}
+.btn svg{width:15px;height:15px;stroke:currentColor}
+
+.split{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:1280px;width:100%;margin:0 auto;padding:0 24px 20px;min-height:320px}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.pane{background:var(--surface);border:1px solid var(--border);min-height:280px}
+.pane-src{border-radius:14px 0 0 14px;border-right:0;display:flex;flex-direction:column}
+.pane-preview{border-radius:0 14px 14px 0;overflow:auto;padding:22px 26px}
+@media(max-width:900px){
+  .pane-src{border-radius:14px 14px 0 0;border-right:1px solid var(--border);border-bottom:0;min-height:200px}
+  .pane-preview{border-radius:0 0 14px 14px;min-height:280px}
+}
+textarea#src{flex:1;border:0;resize:none;padding:20px 22px;font-family:var(--mono);font-size:13.5px;line-height:1.7;background:transparent;color:var(--ink);border-radius:inherit}
+textarea#src:focus{outline:none}
+
+/* preview typography */
+.pane-preview h1,.pane-preview h2,.pane-preview h3,.pane-preview h4,.pane-preview h5,.pane-preview h6{letter-spacing:-.02em;line-height:1.25;margin:1.2em 0 .45em}
+.pane-preview h1{font-size:1.7em;margin-top:0;border-bottom:1px solid var(--border);padding-bottom:.3em}
+.pane-preview h2{font-size:1.35em;border-bottom:1px solid var(--border);padding-bottom:.3em}
+.pane-preview h3{font-size:1.12em}
+.pane-preview p{margin:.7em 0}
+.pane-preview code{font-family:var(--mono);font-size:.88em;background:#F0EFEB;border:1px solid var(--border);border-radius:6px;padding:1px 5px}
+.pane-preview pre{background:#141417;color:#EDEDE8;border-radius:12px;padding:14px 16px;overflow:auto}
+.pane-preview pre code{background:none;border:0;padding:0;color:inherit}
+.pane-preview blockquote{margin:0;border-left:3px solid #DCD7FB;padding-left:14px;color:var(--ink-soft)}
+.pane-preview table{border-collapse:collapse;width:100%;font-size:.9em}
+.pane-preview th,.pane-preview td{border:1px solid var(--border);padding:6px 10px;text-align:left}
+.pane-preview th{background:#FAFAF7}
+.pane-preview a{color:var(--iris-deep);text-decoration:underline;text-underline-offset:3px}
+.pane-preview img{max-width:100%}
+.pane-preview ul,.pane-preview ol{padding-left:1.4em}
+.pane-preview hr{border:0;border-top:1px solid var(--border)}
+
+.bottom{text-align:center;color:var(--faint);font-size:11px;padding:0 24px 18px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;font-size:12px;font-weight:600;border-radius:10px;padding:10px 16px;transition:all .25s ease;z-index:10}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 13H8M16 17H8M16 13h-2M12 9H8"/></svg></span>
+    Markdown Pad
+  </div>
+  <span class="private"><i></i>Private, runs on your device</span>
+</header>
+
+<div class="hero">
+  <div class="eyebrow">Free writing tool</div>
+  <h1>Markdown in. HTML out.</h1>
+  <p>Write on the left. See it on the right. Copy or download.</p>
+</div>
+
+<div class="toolbar" role="toolbar" aria-label="Editor actions">
+  <input class="filename" id="filename" value="untitled" spellcheck="false" autocomplete="off" aria-label="File name">
+  <span class="stats" id="stats">0 words · 0 min read</span>
+  <button class="btn" id="copyHtml" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+    Copy HTML
+  </button>
+  <button class="btn btn-primary" id="dlHtml" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+    Download HTML
+  </button>
+  <button class="btn" id="dlMd" type="button">.md</button>
+  <button class="btn" id="clear" type="button" aria-label="Clear the document">Clear</button>
+</div>
+
+<main class="split">
+  <section class="pane pane-src" aria-label="Markdown source">
+    <textarea id="src" spellcheck="false" aria-label="Write Markdown here" placeholder="# Hello world&#10;&#10;Start typing. Try **bold**, *italic*, lists, tables…"></textarea>
+  </section>
+  <section class="pane pane-preview" id="preview" aria-label="Rendered preview" aria-live="off"></section>
+</main>
+
+<div class="bottom">Markdown Pad is part of Troy's Toolbox. Your words never leave the browser.</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="vendor/markdown-it.umd.min.js"></script>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const src = $('src'), preview = $('preview'), filename = $('filename'), stats = $('stats');
+const md = window.markdownit({ html: false, linkify: true, typographer: true, breaks: true });
+
+const DEFAULT_DOC = '# Welcome to Markdown Pad\n\nType on the left — the right side renders instantly.\n\n## What you get\n\n- Live preview as you type\n- Copy the HTML or download a clean file\n- Nothing is uploaded, ever\n\n```js\nconst hello = "world";\n```\n\n> Your words stay on your device.\n';
+
+function render() {
+  preview.innerHTML = md.render(src.value);
+  const words = (src.value.trim().match(/\S+/g) || []).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  stats.textContent = words + ' words · ' + minutes + ' min read';
+  try { localStorage.setItem('tt-markdown-pad', src.value); } catch (e) { /* ignore */ }
+}
+
+let debounce = 0;
+src.addEventListener('input', () => { window.clearTimeout(debounce); debounce = window.setTimeout(render, 120); });
+src.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const s = src.selectionStart, en = src.selectionEnd;
+    src.setRangeText('  ', s, en, 'select');
+    window.clearTimeout(debounce); render();
+  }
+});
+
+function baseName() {
+  const clean = filename.value.trim().replace(/[\\/:*?"<>|]+/g, '-').replace(/\.(html|md)$/i, '');
+  return clean || 'untitled';
+}
+function standaloneHtml() {
+  const title = baseName();
+  return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>' + title + '</title>\n<style>body{max-width:720px;margin:48px auto;padding:0 20px;font-family:Georgia,serif;line-height:1.65;color:#1B1B1F}code{background:#F0EFEB;padding:1px 5px;border-radius:4px}pre{background:#141417;color:#EDEDE8;padding:14px 16px;border-radius:10px;overflow:auto}blockquote{border-left:3px solid #DCD7FB;margin:0;padding-left:14px;color:#55565C}img{max-width:100%}</style>\n</head>\n<body>\n' + md.render(src.value) + '\n</body>\n</html>';
+}
+function download(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  window.setTimeout(() => URL.revokeObjectURL(a.href), 30000);
+}
+function showToast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.add('show');
+  window.setTimeout(() => t.classList.remove('show'), 1600);
+}
+async function copyText(text, ok) {
+  try { await navigator.clipboard.writeText(text); showToast(ok); }
+  catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showToast(ok); } catch (_) { showToast('Press Ctrl+C to copy'); }
+    ta.remove();
+  }
+}
+
+$('copyHtml').addEventListener('click', () => copyText(standaloneHtml(), 'HTML copied'));
+$('dlHtml').addEventListener('click', () => download(new Blob([standaloneHtml()], { type: 'text/html' }), baseName() + '.html'));
+$('dlMd').addEventListener('click', () => download(new Blob([src.value], { type: 'text/markdown' }), baseName() + '.md'));
+$('clear').addEventListener('click', () => {
+  if (src.value && !window.confirm('Clear the whole document? This cannot be undone.')) return;
+  src.value = ''; render(); src.focus();
+});
+
+try { src.value = localStorage.getItem('tt-markdown-pad') || DEFAULT_DOC; }
+catch (e) { src.value = DEFAULT_DOC; }
+render();
+</script>
+</body>
+</html>

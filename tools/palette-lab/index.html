@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f6f6f3">
+<title>Palette Lab — Build color palettes</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<style>
+:root{
+  --paper:#F6F6F3; --surface:#FFFFFF; --ink:#141417; --ink-soft:#3F4047; --faint:#595A62;
+  --border:#DEDED6; --iris:#6C55F5; --iris-deep:#5540E5; --iris-soft:#EFECFF; --iris-ink:#4630C8;
+  --ok:#146B41; --ok-soft:#E4F3EA; --warn:#B4530A; --warn-soft:#FAF0E4; --bad:#B3261E; --bad-soft:#FBE9E7;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:3px solid var(--iris);outline-offset:3px;border-radius:6px}
+button{font:inherit;cursor:pointer}
+
+header{max-width:1080px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.brand-mark{width:30px;height:30px;border-radius:9px;background:var(--iris-soft);display:grid;place-items:center}
+.brand-mark svg{width:18px;height:18px;stroke:var(--iris-deep)}
+.private{font-size:11px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:7px 13px;display:inline-flex;align-items:center;gap:7px}
+.private i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+
+.wrap{max-width:1080px;margin:0 auto;padding:8px 24px 60px}
+.hero{text-align:center;margin:10px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--iris-deep);font-weight:600;margin-bottom:12px}
+h1{font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.03em;margin:0 0 8px}
+.hero p{margin:0;color:var(--ink-soft)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 1px 3px #14141708,0 8px 24px #1414170a;margin-bottom:18px}
+.row{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.colorWell{position:relative;flex:none}
+.colorWell input[type=color]{appearance:none;-webkit-appearance:none;width:96px;height:96px;border:1px solid var(--border);border-radius:16px;background:#fff;padding:6px;cursor:pointer}
+.colorWell input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+.colorWell input[type=color]::-webkit-color-swatch{border:none;border-radius:10px}
+.colorWell input[type=color]::-moz-color-swatch{border:none;border-radius:10px}
+
+.field{flex:1;min-width:200px}
+.field label{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.field input[type=text]{width:100%;height:44px;padding:0 13px;font-family:var(--mono);font-size:15px;border:1px solid var(--border);border-radius:10px;color:var(--ink);background:#fff}
+.field input[type=text]:focus{outline:none;border-color:var(--iris);box-shadow:0 0 0 3px rgba(108,85,245,.18)}
+.field-name input[type=text]{font-family:var(--sans)}
+
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-weight:700;font-size:13px;color:var(--ink);transition:all .15s ease;white-space:nowrap}
+.btn:hover{border-color:var(--iris);color:var(--iris-deep)}
+.btn-primary{background:var(--iris);border-color:var(--iris);color:#fff}
+.btn-primary:hover{background:var(--iris-deep);color:#fff}
+.btn svg{width:16px;height:16px;stroke:currentColor}
+
+.ramp-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.ramp-head h2{font-size:15px;margin:0;letter-spacing:-.01em}
+.ramp-hint{font-size:11px;color:var(--faint)}
+
+.ramp{display:grid;grid-template-columns:repeat(9,1fr);gap:10px}
+@media(max-width:900px){.ramp{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:560px){.ramp{grid-template-columns:repeat(3,1fr)}}
+.swatch{border:1px solid var(--border);border-radius:14px;overflow:hidden;text-align:left;background:#fff;padding:0;display:flex;flex-direction:column;box-shadow:0 1px 2px #1414170a;transition:transform .15s ease,box-shadow .15s ease}
+.swatch:hover{transform:translateY(-2px);box-shadow:0 10px 22px #1414171f}
+.chip{display:block;height:64px;padding:6px 8px;text-align:left;background:var(--c,#eee)}
+.swatch-body{padding:8px 9px 9px}
+.shade{font-family:var(--mono);font-size:10px;color:var(--faint)}
+.hex{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ink);margin:2px 0 6px}
+.badge{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;border-radius:5px;padding:2px 6px}
+.aaa{background:var(--ok-soft);color:var(--ok)}
+.aa{background:var(--ok-soft);color:var(--ok)}
+.fail{background:var(--warn-soft);color:var(--warn)}
+
+.export pre{font-family:var(--mono);font-size:11px;background:var(--ink);color:#EDEDE8;border-radius:12px;padding:14px 16px;overflow:auto;max-height:230px;line-height:1.6;margin:0 0 12px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;font-size:12px;font-weight:600;border-radius:10px;padding:10px 16px;transition:all .25s ease;z-index:10}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.bottom{text-align:center;color:var(--faint);font-size:11px;margin-top:26px}
+.ramp-error{color:var(--faint);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.2" cy="10.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="11" cy="7.2" r="1.05" fill="currentColor" stroke="none"/><circle cx="15" cy="7.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="17.6" cy="11.2" r="1.05" fill="currentColor" stroke="none"/><path d="M12 21a9 9 0 0 0 8.7-6.9c-2 .6-3.9-.6-4.3-2.6-.3-1.7 1-3.4 2.7-3.9A9 9 0 1 0 12 21z"/></svg></span>
+    Palette Lab
+  </div>
+  <span class="private"><i></i>Private, runs on your device</span>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Free color tool</div>
+    <h1>One base color. A full shade ramp.</h1>
+    <p>Pick a color, get a ramp, copy what you need.</p>
+  </div>
+
+  <section class="card" aria-label="Base color">
+    <div class="row">
+      <div class="colorWell"><input type="color" id="picker" value="#6c55f5" aria-label="Pick a base color"></div>
+      <div class="field">
+        <label for="hex">Hex code</label>
+        <input type="text" id="hex" value="#6C55F5" spellcheck="false" autocomplete="off" maxlength="7" aria-describedby="hexHelp">
+      </div>
+      <div class="field field-name">
+        <label for="slug">Palette name</label>
+        <input type="text" id="slug" value="brand" spellcheck="false" autocomplete="off" maxlength="24" aria-describedby="slugHelp">
+      </div>
+      <button class="btn" id="random" type="button" aria-label="Pick a random base color">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+        Random
+      </button>
+    </div>
+  </section>
+
+  <section class="card" aria-label="Generated ramp">
+    <div class="ramp-head">
+      <h2>The ramp</h2>
+      <span class="ramp-hint">Tap any swatch to copy its hex</span>
+    </div>
+    <div class="ramp" id="ramp" role="list"></div>
+  </section>
+
+  <section class="card export" aria-label="Export">
+    <div class="ramp-head"><h2>Ship it</h2><span class="ramp-hint">CSS custom properties</span></div>
+    <pre id="cssOut" aria-label="CSS variables output"></pre>
+    <button class="btn btn-primary" id="copyCss" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+      Copy CSS variables
+    </button>
+    <button class="btn" id="copyHex" type="button">Copy hex list</button>
+  </section>
+
+  <div class="bottom">Palette Lab is part of Troy's Toolbox. Everything happens in your browser.</div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+/* ── color math ─────────────────────────────────────────── */
+const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
+const pad2 = (n) => n.toString(16).padStart(2, '0');
+
+function hexToHsl(hex) {
+  let h = hex.replace('#', '');
+  if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+  const r = parseInt(h.slice(0, 2), 16) / 255, g = parseInt(h.slice(2, 4), 16) / 255, b = parseInt(h.slice(4, 6), 16) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2, d = max - min;
+  if (d === 0) return { h: 0, s: 0, l };
+  const s = d / (1 - Math.abs(2 * l - 1));
+  let hh;
+  switch (max) {
+    case r: hh = ((g - b) / d) % 6; break;
+    case g: hh = (b - r) / d + 2; break;
+    default: hh = (r - g) / d + 4;
+  }
+  return { h: (hh * 60 + 360) % 360, s, l };
+}
+
+function hslToHex(h, s, l) {
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let r, g, b;
+  if (h < 60) [r, g, b] = [c, x, 0];
+  else if (h < 120) [r, g, b] = [x, c, 0];
+  else if (h < 180) [r, g, b] = [0, c, x];
+  else if (h < 240) [r, g, b] = [0, x, c];
+  else if (h < 300) [r, g, b] = [x, 0, c];
+  else [r, g, b] = [c, 0, x];
+  return '#' + [r, g, b].map((v) => pad2(Math.round((v + m) * 255))).join('').toUpperCase();
+}
+
+function luminance(hex) {
+  const h = hex.replace('#', '');
+  const f = (c) => { const v = parseInt(c, 16) / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  return 0.2126 * f(h.slice(0, 2)) + 0.7152 * f(h.slice(2, 4)) + 0.0722 * f(h.slice(4, 6));
+}
+const contrast = (a, b) => { const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05); };
+const badge = (ratio) => ratio >= 7 ? '<span class="badge aaa">AAA ' + ratio.toFixed(1) + '</span>'
+  : ratio >= 4.5 ? '<span class="badge aa">AA ' + ratio.toFixed(1) + '</span>'
+  : '<span class="badge fail">' + ratio.toFixed(1) + '</span>';
+
+/* ── ramp generation ─────────────────────────────────────── */
+const STOPS = [
+  { name: '50',  l: 0.97 }, { name: '100', l: 0.93 }, { name: '200', l: 0.85 },
+  { name: '300', l: 0.75 }, { name: '400', l: 0.63 }, { name: '500', l: 0.52 },
+  { name: '600', l: 0.42 }, { name: '700', l: 0.32 }, { name: '800', l: 0.23 },
+  { name: '900', l: 0.14 },
+];
+
+const $ = (id) => document.getElementById(id);
+const picker = $('picker'), hexEl = $('hex'), slugEl = $('slug'), ramp = $('ramp');
+
+function slugify(s) {
+  const clean = s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 24);
+  return clean || 'brand';
+}
+
+function buildRamp() {
+  const base = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(hexEl.value.trim()) ? hexEl.value.trim() : null;
+  if (!base) { ramp.innerHTML = '<p class="ramp-error">Enter a valid hex code like #6C55F5</p>'; return null; }
+  const { h, s } = hexToHsl(base);
+  const slug = slugify(slugEl.value);
+  const shades = STOPS.map(({ name, l }) => {
+    // ease saturation a touch at the pale end so tints stay classy
+    const sat = clamp(s * (l > 0.85 ? 0.85 : 1), 0, 1);
+    return { name, hex: hslToHex(h, sat, l) };
+  });
+  ramp.innerHTML = shades.map(({ name, hex }) => {
+    const onWhite = contrast(hex, '#FFFFFF');
+    const textMain = luminance(hex) > 0.42 ? '#141417' : '#FFFFFF';
+    return '<button class="swatch" data-hex="' + hex + '" type="button" aria-label="Copy ' + hex + '" role="listitem" style="--c:' + hex + '">'
+      + '<span class="chip"></span>'
+      + '<span class="swatch-body"><span class="shade">' + slug + '-' + name + '</span>'
+      + '<span class="hex">' + hex + '</span>'
+      + badge(onWhite)
+      + '</span></button>';
+  }).join('');
+  const css = ':root {\n' + shades.map(({ name, hex }) => '  --' + slug + '-' + name + ': ' + hex.toLowerCase() + ';').join('\n') + '\n}';
+  $('cssOut').textContent = css;
+  return { shades, css, slug };
+}
+
+function normalizeHexInput() {
+  let v = hexEl.value.trim();
+  if (v && !v.startsWith('#')) v = '#' + v;
+  hexEl.value = v.toUpperCase();
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v)) picker.value = v.length === 4
+    ? '#' + v.slice(1).split('').map((c) => c + c).join('')
+    : v;
+  return buildRamp();
+}
+
+function showToast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  window.setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+async function copyText(text, okMsg) {
+  try { await navigator.clipboard.writeText(text); showToast(okMsg); }
+  catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); showToast(okMsg); } catch (_) { showToast('Press Ctrl+C to copy'); }
+    ta.remove();
+  }
+}
+
+picker.addEventListener('input', () => { hexEl.value = picker.value.toUpperCase(); buildRamp(); });
+hexEl.addEventListener('input', normalizeHexInput);
+slugEl.addEventListener('input', buildRamp);
+$('random').addEventListener('click', () => {
+  const h = Math.random() * 360, s = 0.55 + Math.random() * 0.35;
+  hexEl.value = hslToHex(h, s, 0.52);
+  picker.value = hexEl.value;
+  buildRamp();
+});
+ramp.addEventListener('click', (e) => {
+  const btn = e.target.closest('.swatch');
+  if (btn) copyText(btn.getAttribute('data-hex'), 'Copied ' + btn.getAttribute('data-hex'));
+});
+$('copyCss').addEventListener('click', () => { const r = buildRamp(); if (r) copyText(r.css, 'CSS variables copied'); });
+$('copyHex').addEventListener('click', () => { const r = buildRamp(); if (r) copyText(r.shades.map((s) => s.hex).join('\n'), 'Hex list copied'); });
+
+buildRamp();
+</script>
+</body>
+</html>

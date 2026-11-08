@@ -7,7 +7,7 @@
   "scripts": {
     "preview": "python3 -m http.server 3000",
     "dev": "python3 -m http.server 3000",
-    "test": "node tests/smoke.mjs"
+    "test": "node tests/smoke.mjs && node tests/tools.test.mjs"
   },
   "repository": {
     "type": "git",

@@ -10,35 +10,39 @@
    ──────────────────────────────────────────── */
 const ICONS = {
   image:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4.5 18l5-5 4 4 3.2-3.2L21 18.5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="18" x="3" y="3" rx="2" ry="2" /> <circle cx="9" cy="9" r="2" /> <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /> </svg>',
   palette:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.2" cy="10.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="11" cy="7.2" r="1.05" fill="currentColor" stroke="none"/><circle cx="15" cy="7.4" r="1.05" fill="currentColor" stroke="none"/><circle cx="17.6" cy="11.2" r="1.05" fill="currentColor" stroke="none"/><path d="M12 21a9 9 0 0 0 8.7-6.9c-2 .6-3.9-.6-4.3-2.6-.3-1.7 1-3.4 2.7-3.9A9 9 0 1 0 12 21z"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-palette" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /> </svg>',
   qr:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h1M18.5 18.5H21V21"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-qr-code" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="5" height="5" x="3" y="3" rx="1" /> <rect width="5" height="5" x="16" y="3" rx="1" /> <rect width="5" height="5" x="3" y="16" rx="1" /> <path d="M21 16h-3a2 2 0 0 0-2 2v3" /> <path d="M21 21v.01" /> <path d="M12 7v3a2 2 0 0 1-2 2H7" /> <path d="M3 12h.01" /> <path d="M12 3h.01" /> <path d="M12 16v.01" /> <path d="M16 12h1" /> <path d="M21 12v.01" /> <path d="M12 21v-1" /> </svg>',
   markdown:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V7l4 5 4-6 4 6 4-5v10"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-file-text" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /> </svg>',
   arrowRight:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"/><path d="M13 5.5L19.5 12 13 18.5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /> </svg>',
   arrowLeft:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5"/><path d="M11 5.5L4.5 12 11 18.5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-arrow-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m12 19-7-7 7-7" /> <path d="M19 12H5" /> </svg>',
   shield:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-shield-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg>',
   bolt:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L5 13.5h5L9.5 22 18 10.5h-5.5L13 2z"/></svg>',
-  lock:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-zap" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z" /> </svg>',
   search:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /> </svg>',
   external:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4L10.5 13.5"/><path d="M19 13.5V19a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19V6.5A1.5 1.5 0 0 1 5 5h5.5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-external-link" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 3h6v6" /> <path d="M10 14 21 3" /> <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /> </svg>',
   newTab:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-6"/><path d="M14 4h6v6"/><path d="M20 4l-9 9"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-square-arrow-out-up-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" /> <path d="m21 3-9 9" /> <path d="M15 3h6v6" /> </svg>',
   expand:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-expand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m15 15 6 6" /> <path d="m15 9 6-6" /> <path d="M21 16v5h-5" /> <path d="M21 8V3h-5" /> <path d="M3 16v5h5" /> <path d="m3 21 6-6" /> <path d="M3 8V3h5" /> <path d="M9 9 3 3" /> </svg>',
   minimize:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h5V4M20 9h-5V4M4 15h5v5M20 15h-5v5"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-minimize-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m14 10 7-7" /> <path d="M20 10h-6V4" /> <path d="m3 21 7-7" /> <path d="M4 14h6v6" /> </svg>',
   spark:
-    '<svg stroke="currentColor" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 6.2L20.2 11 14 13l-2 6.2L10 13 3.8 11 10 9.2 12 3z"/></svg>',
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /> </svg>',
+  appWindow:
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-app-window" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect x="2" y="4" width="20" height="16" rx="2" /> <path d="M10 4v4" /> <path d="M2 8h20" /> <path d="M6 4v4" /> </svg>',
+  wholeWord:
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-whole-word" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="7" cy="12" r="3" /> <path d="M10 9v6" /> <circle cx="17" cy="12" r="3" /> <path d="M14 7v8" /> <path d="M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1" /> </svg>',
+  globe:
+    '<!-- @license lucide-static v1.70.0 - ISC --> <svg class="lucide lucide-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /> </svg>',
   github:
     '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-1.03-.01-1.86-2.51.46-3.16-.61-3.35-1.17-.11-.28-.6-1.17-1.03-1.41-.35-.19-.86-.66-.01-.67.8-.01 1.36.73 1.55 1.03.9 1.52 2.34 1.1 2.91.84.09-.65.35-1.1.63-1.35-2.22-.25-4.56-1.11-4.56-4.94 0-1.1.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.33-.01 2.41-.01 2.74 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>',
 };
@@ -51,49 +55,22 @@ const icon = (name, size = 18) =>
    TOOL REGISTRY — add new tools here
    ──────────────────────────────────────────── */
 const TOOLS = [
-  {
-    id: 'snappdf',
-    name: 'SnapPDF',
-    tagline: 'Photos → PDF',
-    desc: 'Turn photos into a neat, shareable PDF — straight on your device. Reorder pages, choose A4 / Letter / fit-to-photo, auto-compress under 3 MB.',
-    category: 'PDF',
-    status: 'live',
+  { id: 'snappdf', name: 'SnapPDF', tagline: 'Photos to PDF', desc: 'Turn photos into a shareable PDF, on your device.', category: 'PDF', status: 'live',
     keywords: 'pdf photos images jpg png webp convert merge print document scan pages',
-    src: 'tools/snappdf/index.html',
-    original: 'https://files.catbox.moe/ol080y.html',
-    glyph: ICONS.image,
-    added: 'Tool Nº 001',
-  },
-  {
-    id: 'palette-lab',
-    name: 'Palette Lab',
-    tagline: 'Design color ramps',
-    desc: 'Build HTML-ready color palettes with lockable ramps, live contrast checks and one-click export as CSS variables.',
-    category: 'Design',
-    status: 'soon',
-    keywords: 'color palette contrast css variables design hex',
-    glyph: ICONS.palette,
-  },
-  {
-    id: 'qr-studio',
-    name: 'QR Studio',
-    tagline: 'QR codes, crisp',
-    desc: 'Generate sharp QR codes for links, Wi-Fi and email. Export as SVG or PNG, no watermark, no sign-up.',
-    category: 'Utilities',
-    status: 'soon',
-    keywords: 'qr code generator link wifi png svg',
-    glyph: ICONS.qr,
-  },
-  {
-    id: 'markdown-pad',
-    name: 'Markdown Pad',
-    tagline: 'Live Markdown editor',
-    desc: 'A distraction-free Markdown editor with split live preview, outline sidebar and one-click HTML export.',
-    category: 'Text',
-    status: 'soon',
-    keywords: 'markdown editor preview text html write',
-    glyph: ICONS.markdown,
-  },
+    src: 'tools/snappdf/index.html', original: 'https://files.catbox.moe/ol080y.html', glyph: ICONS.image, added: 'Tool 001' },
+  { id: 'palette-lab', name: 'Palette Lab', tagline: 'Color ramps from one hex', desc: 'Turn one base color into nine shades with contrast checks.', category: 'Design', status: 'live',
+    keywords: 'color palette ramp shades swatch hex contrast css variables design',
+    src: 'tools/palette-lab/index.html', glyph: ICONS.palette, added: 'Tool 002' },
+  { id: 'qr-studio', name: 'QR Studio', tagline: 'QR codes for links and Wi-Fi', desc: 'Make QR codes for links, text or Wi-Fi, downloads included.', category: 'Utilities', status: 'live',
+    keywords: 'qr code generator link wifi network svg png scan',
+    src: 'tools/qr-studio/index.html', glyph: ICONS.qr, added: 'Tool 003' },
+  { id: 'markdown-pad', name: 'Markdown Pad', tagline: 'Markdown to HTML, live', desc: 'Write Markdown and see it rendered as you type.', category: 'Text', status: 'live',
+    keywords: 'markdown editor preview html write notes document',
+    src: 'tools/markdown-pad/index.html', glyph: ICONS.markdown, added: 'Tool 004' },
+  { id: 'favicon-maker', name: 'Favicon Maker', tagline: 'Site icons from any image', desc: 'Drop in an image and get every favicon size you need.', category: 'Design', status: 'soon',
+    keywords: 'favicon icon site app pwa image resize', glyph: ICONS.appWindow },
+  { id: 'word-counter', name: 'Word Counter', tagline: 'Words, characters, reading time', desc: 'Paste text and see word count and reading time instantly.', category: 'Text', status: 'soon',
+    keywords: 'word count characters reading time text essay', glyph: ICONS.wholeWord },
 ];
 
 const CATEGORIES = ['All', 'PDF', 'Text', 'Design', 'Utilities'];
@@ -185,7 +162,7 @@ function renderToolNav() {
 function crumbRow(section) {
   return (
     '<div class="crumb-row">' +
-      '<div class="crumb">Toolbox <span aria-hidden="true">/</span> <b>' + esc(section) + '</b></div>' +
+      '<div class="crumb"><b>' + esc(section) + '</b></div>' +
       '<span class="crumb-chip"><i></i>Runs on your device</span>' +
     '</div>'
   );
@@ -194,8 +171,8 @@ function crumbRow(section) {
 function footRow() {
   return (
     '<footer class="foot">' +
-      '<span>Troy&rsquo;s Toolbox — MIT licensed &copy; TechTroyAi</span>' +
-      '<span>100% client-side &middot; No tracking &middot; <a href="' + GITHUB_REPO + '" target="_blank" rel="noopener">View source</a></span>' +
+      '<span>Troy&rsquo;s Toolbox, MIT license</span>' +
+      '<span>Runs on your device, open source on <a href="' + GITHUB_REPO + '" target="_blank" rel="noopener">GitHub</a></span>' +
     '</footer>'
   );
 }
@@ -228,8 +205,8 @@ function gridHTML(list) {
   if (!list.length) {
     return (
       '<div class="empty-state">' +
-        '<h3>Nothing matches that — yet</h3>' +
-        '<p>No tools match &ldquo;' + esc(state.q) + '&rdquo; in ' + esc(state.cat) + '. Try a different keyword.</p>' +
+        '<h3>No matching tools</h3>' +
+        '<p>Try a different search or category.</p>' +
         '<button class="btn btn-ghost btn-sm" id="clearFilters" type="button">Clear search &amp; filters</button>' +
       '</div>'
     );
@@ -244,7 +221,7 @@ function searchAndChipsHTML() {
   return (
     '<div class="view-search">' +
       ICONS.search +
-      '<input id="viewSearch" type="search" placeholder="Search tools…" autocomplete="off" spellcheck="false" value="' + esc(state.q) + '" aria-label="Search tools">' +
+      '<input id="viewSearch" type="search" placeholder="Search tools" autocomplete="off" spellcheck="false" value="' + esc(state.q) + '" aria-label="Search tools">' +
     '</div>' +
     '<div class="chips" role="group" aria-label="Filter by category">' + chips + '</div>'
   );
@@ -260,17 +237,12 @@ function viewOverview() {
       crumbRow('Overview') +
 
       '<section class="hero">' +
-        '<div class="eyebrow">Free · Private · In-browser</div>' +
-        '<h1>Tiny tools, <span class="accent">serious craftsmanship.</span></h1>' +
-        '<p class="lede">Troy&rsquo;s Toolbox is a growing collection of single-purpose HTML tools. No sign-up, no installs, no uploads — everything runs right on your device, and nothing leaves it.</p>' +
+        '<div class="eyebrow">Free, private, in your browser</div>' +
+        '<h1>Free tools that <span class="accent">just work.</span></h1>' +
+        '<p class="lede">Single-purpose tools that run in your browser. No accounts, no uploads, nothing to install.</p>' +
         '<div class="cta-row">' +
           '<a class="btn btn-primary" href="#/tool/snappdf">Launch SnapPDF ' + ICONS.arrowRight + '</a>' +
           '<a class="btn btn-ghost" href="#/tools">Browse all tools</a>' +
-        '</div>' +
-        '<div class="trust-row">' +
-          '<span class="trust">' + ICONS.shield + '100% client-side</span>' +
-          '<span class="trust">' + ICONS.bolt + 'Zero install</span>' +
-          '<span class="trust">' + ICONS.lock + 'No tracking</span>' +
         '</div>' +
       '</section>' +
 
@@ -282,9 +254,9 @@ function viewOverview() {
 
       '<article class="featured" aria-label="Featured tool: SnapPDF">' +
         '<div class="featured-body">' +
-          '<div class="featured-kicker"><span class="badge-featured">Featured</span><span class="tool-cat">' + esc(snap.added || 'Tool Nº 001') + '</span></div>' +
-          '<h2>SnapPDF — your photos, one PDF.</h2>' +
-          '<p>Drop in your photos, set the page size and compression, and get a clean, shareable PDF. Your images are processed locally in memory and never touch a server.</p>' +
+          '<div class="featured-kicker"><span class="badge-featured">Featured</span><span class="tool-cat">' + esc(snap.added || 'Tool 001') + '</span></div>' +
+          '<h2>SnapPDF</h2>' +
+          '<p>Drop in your photos and get one clean PDF. Nothing is uploaded.</p>' +
           '<div class="tagrow"><span class="tag">PDF</span><span class="tag">Images</span><span class="tag neutral">Works offline</span><span class="tag neutral">Under 3 MB</span></div>' +
           '<div class="featured-actions">' +
             '<a class="btn btn-primary btn-sm" href="#/tool/snappdf">Launch tool ' + ICONS.arrowRight + '</a>' +
@@ -294,10 +266,10 @@ function viewOverview() {
         '<div class="featured-visual" aria-hidden="true">' +
           '<div class="mock">' +
             '<div class="mock-card">' +
-              '<div class="mock-head"><span class="mock-logo">▧</span><span class="mock-title">SnapPDF</span><span class="mock-pill">Private · on device</span></div>' +
+              '<div class="mock-head"><span class="mock-logo">▧</span><span class="mock-title">SnapPDF</span><span class="mock-pill">Private, on device</span></div>' +
               '<div class="mock-drop">Drop your photos here</div>' +
               '<div class="mock-photos"><span class="mock-photo"></span><span class="mock-photo"></span><span class="mock-photo"></span><span class="mock-photo"></span></div>' +
-              '<div class="mock-cta">Create &amp; download PDF ↓</div>' +
+              '<div class="mock-cta">Create &amp; download PDF</div>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -308,12 +280,6 @@ function viewOverview() {
         '<a class="section-link" href="#/tools">See all ' + counts().total + ' tools ' + icon('arrowRight', 13) + '</a>' +
       '</div>' +
       gridHTML(visibleTools()) +
-
-      '<div class="trio" aria-label="Why Troy\'s Toolbox">' +
-        '<div class="trio-item">' + ICONS.shield + '<h3>Private by default</h3><p>Files are processed in your browser&rsquo;s memory. No uploads, no cloud, no asterisks.</p></div>' +
-        '<div class="trio-item">' + ICONS.bolt + '<h3>Opens instantly</h3><p>Pure HTML, CSS and vanilla JS. No frameworks to download, nothing to install.</p></div>' +
-        '<div class="trio-item">' + ICONS.spark + '<h3>Built in the open</h3><p>Every tool is a single readable HTML file in a public repo. Fork it, audit it, learn from it.</p></div>' +
-      '</div>' +
 
       footRow() +
     '</div>'
@@ -329,9 +295,9 @@ function viewTools() {
       crumbRow('All Tools') +
       '<div class="section-head tools-head">' +
         '<div><div class="section-label">The Collection</div><h1 class="section-title tools-title">All tools</h1></div>' +
-        '<span class="crumb-chip">' + counts().live + ' live · ' + (counts().total - counts().live) + ' coming</span>' +
+        '<span class="crumb-chip">' + counts().live + ' live, ' + (counts().total - counts().live) + ' coming</span>' +
       '</div>' +
-      '<p class="lede view-lede">Search the collection or filter by category. Every tool opens instantly — nothing to install.</p>' +
+      '<p class="lede view-lede">Search or filter by category. Everything runs in your browser.</p>' +
       searchAndChipsHTML() +
       '<div id="gridSlot">' + gridHTML(visibleTools()) + '</div>' +
 
@@ -396,7 +362,7 @@ function viewToolRunner(tool) {
         '<iframe id="toolFrame" title="' + esc(tool.name) + ' — ' + esc(tool.tagline || 'tool') + '" src="' + esc(tool.src) + '" sandbox="allow-scripts allow-same-origin allow-downloads" referrerpolicy="no-referrer"></iframe>' +
       '</div>' +
       '<div class="runner-foot">' +
-        '<span>Runs locally · nothing leaves this device · <a href="' + GITHUB_REPO + '" target="_blank" rel="noopener">source</a></span>' +
+        '<span>Runs locally, nothing leaves this device. <a href="' + GITHUB_REPO + '" target="_blank" rel="noopener">source</a></span>' +
         '<span class="desktop-hint">Press <kbd class="key">Esc</kbd> to go back home</span>' +
       '</div>' +
     '</div>'
@@ -424,10 +390,10 @@ function viewNotFound() {
    ROUTER
    ──────────────────────────────────────────── */
 const TITLES = {
-  overview: "Troy's Toolbox — Free, Private, In-Browser Tools",
-  tools: "All Tools · Troy's Toolbox",
-  about: "About · Troy's Toolbox",
-  notfound: "Not found · Troy's Toolbox",
+  overview: "Troy's Toolbox",
+  tools: "All Tools — Troy's Toolbox",
+  about: "About — Troy's Toolbox",
+  notfound: "Not found — Troy's Toolbox",
 };
 
 function parseHash() {
@@ -482,7 +448,7 @@ function render() {
       return;
     }
     view.innerHTML = viewToolRunner(tool);
-    document.title = tool.name + " · Troy's Toolbox";
+    document.title = tool.name + " — Troy's Toolbox";
     setActiveNav('tool', tool.id);
     bindRunner(tool);
     afterRender(false);

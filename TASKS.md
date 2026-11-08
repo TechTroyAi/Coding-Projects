@@ -28,6 +28,16 @@ What's finished, and what's waiting on you. Updated: 2026-11-06.
 - [x] Contrast audit of the full palette (computed, not eyeballed — all pairs ≥ 4.5:1)
 - [x] Research-based decisions (senior-friendly body text ≥16–18px, 48px targets, minimal animation, icons + labels)
 
+### Build 3 — Lucide + the full collection (PR #5)
+- [x] Every icon replaced with **Lucide** (ISC license) — cleaner, consistent 2px strokes
+- [x] All copy rewritten to short, plain sentences — no decorative symbols anywhere
+- [x] **Palette Lab** — base hex → 10-shade ramp, WCAG contrast badges, click-to-copy hex, CSS variables export
+- [x] **QR Studio** — URL/text/Wi-Fi → QR with live preview, SVG + PNG download (vendored MIT `qrcode-generator`)
+- [x] **Markdown Pad** — split live preview (vendored MIT `markdown-it`, XSS-safe), Copy/Download HTML + .md, word stats
+- [x] Overview decluttered — redundant trust row and trio section removed, shorter hero
+- [x] Two fresh “coming soon” teasers: Favicon Maker, Word Counter
+- [x] `npm test` now runs both suites — SPA smoke + tools drive-through (all green)
+
 ### Housekeeping
 - [x] `robots.txt` — crawlers allowed (PR #3)
 - [x] This task list
@@ -54,6 +64,8 @@ What's finished, and what's waiting on you. Updated: 2026-11-06.
 
 ## 🔭 Backlog (tool candidates)
 
-- [ ] Tool Nº 002 — Palette Lab (Design)
-- [ ] Tool Nº 003 — QR Studio (Utilities)
-- [ ] Tool Nº 004 — Markdown Pad (Text)
+- [x] Tool 002 — Palette Lab (Design)
+- [x] Tool 003 — QR Studio (Utilities)
+- [x] Tool 004 — Markdown Pad (Text)
+- [ ] Tool 005 — Favicon Maker (Design)
+- [ ] Tool 006 — Word Counter (Text)

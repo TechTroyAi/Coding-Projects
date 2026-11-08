@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#f6f6f3">
+<title>QR Studio — Make QR codes free</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/img/favicon.svg">
+<style>
+:root{
+  --paper:#F6F6F3; --surface:#FFFFFF; --ink:#141417; --ink-soft:#3F4047; --faint:#595A62;
+  --border:#DEDED6; --iris:#6C55F5; --iris-deep:#5540E5; --iris-soft:#EFECFF; --iris-ink:#4630C8;
+  --ok:#146B41;
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:3px solid var(--iris);outline-offset:3px;border-radius:6px}
+button{font:inherit;cursor:pointer}
+
+header{max-width:1080px;margin:0 auto;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;letter-spacing:-.01em}
+.brand-mark{width:30px;height:30px;border-radius:9px;background:var(--iris-soft);display:grid;place-items:center}
+.brand-mark svg{width:18px;height:18px;stroke:var(--iris-deep)}
+.private{font-size:11px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:7px 13px;display:inline-flex;align-items:center;gap:7px}
+.private i{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+
+.wrap{max-width:1080px;margin:0 auto;padding:8px 24px 60px}
+.hero{text-align:center;margin:10px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--iris-deep);font-weight:600;margin-bottom:12px}
+h1{font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.03em;margin:0 0 8px}
+.hero p{margin:0;color:var(--ink-soft)}
+
+.layout{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start}
+@media(max-width:840px){.layout{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 1px 3px #14141708,0 8px 24px #1414170a}
+
+.seg{display:flex;gap:8px;margin-bottom:16px}
+.seg button{flex:1;height:42px;border-radius:10px;border:1px solid var(--border);background:#fff;font-weight:700;font-size:13px;color:var(--ink-soft);transition:all .15s ease}
+.seg button.active{background:var(--iris-soft);border-color:#DCD7FB;color:var(--iris-ink)}
+
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.field input[type=text],.field input[type=password],.field select,.field textarea{width:100%;height:44px;padding:0 13px;font-family:var(--sans);font-size:14px;border:1px solid var(--border);border-radius:10px;color:var(--ink);background:#fff}
+.field textarea{height:auto;min-height:96px;padding:12px 13px;resize:vertical;font-family:var(--mono);font-size:13px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--iris);box-shadow:0 0 0 3px rgba(108,85,245,.18)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.toggle{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-soft);margin:4px 0 14px;cursor:pointer;user-select:none}
+.toggle input{width:17px;height:17px;accent-color:var(--iris)}
+
+.preview{display:flex;flex-direction:column;align-items:center;gap:14px;padding:26px 20px}
+.qr-holder{width:100%;max-width:300px;aspect-ratio:1;display:grid;place-items:center;background:#fff;border:1px dashed var(--border);border-radius:16px;overflow:hidden}
+.qr-holder svg{width:88%;height:88%}
+.qr-empty{text-align:center;color:var(--faint);font-size:13px;padding:0 20px;line-height:1.5}
+.qr-error{color:#B3261E;font-size:13px;text-align:center;padding:0 16px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-weight:700;font-size:13px;color:var(--ink);transition:all .15s ease;white-space:nowrap}
+.btn:hover{border-color:var(--iris);color:var(--iris-deep)}
+.btn-primary{background:var(--iris);border-color:var(--iris);color:#fff}
+.btn-primary:hover{background:var(--iris-deep);color:#fff}
+.btn svg{width:16px;height:16px;stroke:currentColor}
+.dl-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.meta{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.06em}
+.bottom{text-align:center;color:var(--faint);font-size:11px;margin-top:26px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3M21 21v.01M12 7v3a2 2 0 0 1-2 2H7M3 12h.01M12 3h.01M12 16v.01M16 12h1M21 12v.01M12 21v-1"/></svg></span>
+    QR Studio
+  </div>
+  <span class="private"><i></i>Private, runs on your device</span>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Free QR tool</div>
+    <h1>Any text. One QR.</h1>
+    <p>Links, Wi-Fi, messages. Download as SVG or PNG.</p>
+  </div>
+
+  <div class="layout">
+    <section class="card" aria-label="QR settings">
+      <div class="seg" role="tablist" aria-label="Content type">
+        <button class="active" id="tabLink" role="tab" aria-selected="true" type="button">Link or text</button>
+        <button id="tabWifi" role="tab" aria-selected="false" type="button">Wi-Fi</button>
+      </div>
+
+      <div id="paneLink" role="tabpanel" aria-labelledby="tabLink">
+        <div class="field">
+          <label for="text">What should the QR open?</label>
+          <textarea id="text" placeholder="https://example.com" spellcheck="false" autocomplete="off"></textarea>
+        </div>
+      </div>
+
+      <div id="paneWifi" role="tabpanel" aria-labelledby="tabWifi" hidden>
+        <div class="field">
+          <label for="ssid">Network name (SSID)</label>
+          <input type="text" id="ssid" placeholder="My Home WiFi" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" autocomplete="off" spellcheck="false" placeholder="Leave empty if open">
+          </div>
+          <div class="field">
+            <label for="security">Security</label>
+            <select id="security">
+              <option value="WPA" selected>WPA / WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">Open (no password)</option>
+            </select>
+          </div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="hiddenWifi"> Hidden network</label>
+      </div>
+
+      <div class="two">
+        <div class="field">
+          <label for="ecc">Error correction</label>
+          <select id="ecc">
+            <option value="L">L — 7% (smallest)</option>
+            <option value="M" selected>M — 15% (typical)</option>
+            <option value="Q">Q — 25%</option>
+            <option value="H">H — 30% (most forgiving)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="px">PNG size</label>
+          <select id="px">
+            <option value="8">S — for print at small size</option>
+            <option value="14" selected>M — recommended</option>
+            <option value="22">L — large print</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card preview" aria-label="QR preview">
+      <div class="qr-holder" id="qrHolder"><div class="qr-empty" id="qrEmpty">Type something and your QR appears here, ready to scan.</div></div>
+      <div class="meta" id="qrMeta"></div>
+      <div class="dl-row">
+        <button class="btn btn-primary" id="dlPng" type="button" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg>
+          Download PNG</button>
+        <button class="btn" id="dlSvg" type="button" disabled>Download SVG</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="bottom">QR Studio is part of Troy's Toolbox. Your data never leaves the browser.</div>
+</main>
+
+<script src="vendor/qrcode.js"></script>
+<script src="vendor/qrcode_UTF8.js"></script>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const textEl = $('text'), ssid = $('ssid'), password = $('password'), security = $('security'),
+      hiddenWifi = $('hiddenWifi'), ecc = $('ecc'), px = $('px'),
+      holder = $('qrHolder'), emptyEl = $('qrEmpty'), meta = $('qrMeta'),
+      dlPng = $('dlPng'), dlSvg = $('dlSvg');
+
+let mode = 'link';
+let currentPayload = null;
+
+const escWifi = (s) => String(s).replace(/([\\;,:"])/g, '\\$1');
+
+function wifiPayload() {
+  const ssidV = ssid.value.trim();
+  if (!ssidV) return null;
+  const t = security.value === 'nopass' ? 'nopass' : security.value;
+  const p = t === 'nopass' ? '' : 'P:' + escWifi(password.value) + ';';
+  const h = hiddenWifi.checked ? 'H:true;' : '';
+  return 'WIFI:T:' + t + ';S:' + escWifi(ssidV) + ';' + p + h + ';';
+}
+function linkPayload() {
+  const v = textEl.value.trim();
+  return v || null;
+}
+function payload() { return mode === 'wifi' ? wifiPayload() : linkPayload(); }
+
+function buildQr(text) {
+  // typeNumber 0 = auto; throws if too much data for the chosen EC level
+  const qr = qrcode(0, ecc.value);
+  qr.addData(text);
+  qr.make();
+  return qr;
+}
+
+function render() {
+  const data = payload();
+  currentPayload = null;
+  dlPng.disabled = true; dlSvg.disabled = true; meta.textContent = '';
+  if (!data) {
+    holder.innerHTML = '<div class="qr-empty" id="qrEmpty">' + (mode === 'wifi' ? 'Enter a network name and your QR appears here.' : 'Type something and your QR appears here, ready to scan.') + '</div>';
+    return;
+  }
+  let qr;
+  try { qr = buildQr(data); }
+  catch (e) {
+    holder.innerHTML = '<div class="qr-error">That is too much text for a QR code. Shorten it, or use a lower error-correction level.</div>';
+    return;
+  }
+  currentPayload = data;
+  const n = qr.getModuleCount();
+  const margin = 4, cell = 10, size = (n + margin * 2) * cell;
+  let svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + size + ' ' + size + '" role="img" aria-label="QR code"><rect width="100%" height="100%" fill="#ffffff"/><path fill="#141417" d="';
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+    if (qr.isDark(r, c)) svg += 'M' + (c + margin) * cell + ' ' + (r + margin) * cell + 'h' + cell + 'v' + cell + 'h-' + cell + 'z';
+  }
+  svg += '"/></svg>';
+  holder.innerHTML = svg;
+  meta.textContent = n + ' × ' + n + ' modules · EC ' + ecc.value + ' · ' + data.length + ' chars';
+  dlPng.disabled = false; dlSvg.disabled = false;
+}
+
+let debounce = 0;
+const queue = () => { window.clearTimeout(debounce); debounce = window.setTimeout(render, 180); };
+[textEl, ssid, password, security, ecc, px].forEach((el) => {
+  el.addEventListener('input', queue);
+  el.addEventListener('change', queue);
+});
+hiddenWifi.addEventListener('change', queue);
+
+const setMode = (next) => {
+  mode = next;
+  $('paneLink').hidden = mode !== 'link';
+  $('paneWifi').hidden = mode !== 'wifi';
+  $('tabLink').classList.toggle('active', mode === 'link');
+  $('tabWifi').classList.toggle('active', mode === 'wifi');
+  $('tabLink').setAttribute('aria-selected', String(mode === 'link'));
+  $('tabWifi').setAttribute('aria-selected', String(mode === 'wifi'));
+  render();
+};
+$('tabLink').addEventListener('click', () => setMode('link'));
+$('tabWifi').addEventListener('click', () => setMode('wifi'));
+
+function download(blob, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  window.setTimeout(() => URL.revokeObjectURL(a.href), 30000);
+}
+
+dlSvg.addEventListener('click', () => {
+  const svgEl = holder.querySelector('svg');
+  if (!svgEl) return;
+  const src = new XMLSerializer().serializeToString(svgEl);
+  download(new Blob([src], { type: 'image/svg+xml' }), 'qr-code.svg');
+});
+
+dlPng.addEventListener('click', () => {
+  if (!currentPayload) return;
+  let qr;
+  try { qr = buildQr(currentPayload); } catch (e) { return; }
+  const n = qr.getModuleCount(), cell = Number(px.value), margin = 4;
+  const size = (n + margin * 2) * cell;
+  const c = document.createElement('canvas');
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, size, size);
+  ctx.fillStyle = '#141417';
+  for (let r = 0; r < n; r++) for (let cc = 0; cc < n; cc++) {
+    if (qr.isDark(r, cc)) ctx.fillRect((cc + margin) * cell, (r + margin) * cell, cell, cell);
+  }
+  c.toBlob((b) => b && download(b, 'qr-code.png'), 'image/png');
+});
+
+/* restore last session */
+try {
+  const saved = JSON.parse(localStorage.getItem('tt-qr-studio') || 'null');
+  if (saved && typeof saved === 'object') {
+    mode = saved.mode === 'wifi' ? 'wifi' : 'link';
+    textEl.value = saved.text || '';
+    ssid.value = saved.ssid || ''; password.value = saved.password || '';
+    security.value = saved.security || 'WPA'; ecc.value = saved.ecc || 'M';
+    hiddenWifi.checked = !!saved.hidden;
+  }
+} catch (e) { /* ignore */ }
+window.addEventListener('beforeunload', () => {
+  try {
+    localStorage.setItem('tt-qr-studio', JSON.stringify({
+      mode, text: textEl.value, ssid: ssid.value, password: password.value,
+      security: security.value, ecc: ecc.value, hidden: hiddenWifi.checked,
+    }));
+  } catch (e) { /* ignore */ }
+});
+
+setMode(mode);
+</script>
+</body>
+</html>

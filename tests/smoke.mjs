@@ -41,12 +41,15 @@ const hash = (h) => {
 };
 
 /* 1 — Overview */
-assert(q('#view').innerHTML.includes('Tiny tools'), 'overview hero rendered');
-assert(qa('.tool-card').length === 4, 'tool grid renders 4 cards');
-assert(q('#toolCount').textContent.includes('1'), 'tool count chip shows live tools');
-assert(qa('#toolNav .nav-item').length === 4, 'sidebar renders tool entries');
+assert(q('#view').innerHTML.includes('Free tools that'), 'overview hero rendered');
+assert(qa('.tool-card').length === 6, 'tool grid renders 6 cards');
+assert(q('#toolCount').textContent.includes('4'), 'tool count chip shows 4 live tools');
+assert(qa('#toolNav .nav-item').length === 6, 'sidebar renders all 6 tool entries');
 assert(q('#view').innerHTML.includes('How it works'), 'how-it-works strip renders');
 assert(qa('.how-step').length === 3, 'three how-it-works steps');
+assert(q('#view').innerHTML.includes('Palette Lab'), 'overview lists Palette Lab');
+assert(q('#view').innerHTML.includes('QR Studio'), 'overview lists QR Studio');
+assert(q('#view').innerHTML.includes('Markdown Pad'), 'overview lists Markdown Pad');
 
 /* 2 — All Tools route: search, chips, grid */
 hash('#/tools');
@@ -59,7 +62,7 @@ assert(qa('#gridSlot .tool-card').length === 1, 'search narrows to SnapPDF');
 vs.value = '';
 vs.dispatchEvent(new window.Event('input', { bubbles: true }));
 qa('.chip').find((c) => c.dataset.cat === 'Design').dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
-assert(qa('#gridSlot .tool-card').length === 1, 'category filter works');
+assert(qa('#gridSlot .tool-card').length === 2, 'Design filter shows Palette Lab + Favicon Maker');
 qa('.chip').find((c) => c.dataset.cat === 'All').dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
 
 /* 3 — Tool runner contract */

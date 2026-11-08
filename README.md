@@ -2,7 +2,7 @@
 
 **Tiny tools, serious craftsmanship.** A growing collection of single-purpose HTML tools that run **100% in your browser** — no accounts, no installs, no uploads, no tracking.
 
-**First tool:** [SnapPDF — Photos to PDF](tools/snappdf/index.html) · live inside the toolbox at `/` → *Launch SnapPDF*.
+**Live tools:** [SnapPDF — Photos to PDF](tools/snappdf/index.html) · [Palette Lab](tools/palette-lab/index.html) · [QR Studio](tools/qr-studio/index.html) · [Markdown Pad](tools/markdown-pad/index.html)
 
 ---
 
@@ -27,9 +27,15 @@ npm run preview        # python3 -m http.server 3000
 │   ├── js/app.js           # Tool registry + hash router (zero runtime deps)
 │   └── img/favicon.svg     # Logo / favicon
 ├── tools/
-│   └── snappdf/index.html  # Tool Nº 001 — Photos → PDF (self-contained)
+│   ├── snappdf/            # Tool 001 — Photos → PDF (self-contained)
+│   ├── palette-lab/        # Tool 002 — one base hex → full shade ramp
+│   ├── qr-studio/          # Tool 003 — QR codes (vendored qrcode-generator, MIT)
+│   │   └── vendor/         # third-party file + NOTICE.txt attribution
+│   └── markdown-pad/       # Tool 004 — live Markdown → HTML (vendored markdown-it, MIT)
+│       └── vendor/         # third-party file + NOTICE.txt attribution
 ├── tests/
-│   └── smoke.mjs           # jsdom smoke suite — every route + a11y wiring
+│   ├── smoke.mjs           # SPA routes, search, filters, runner, a11y wiring
+│   └── tools.test.mjs      # headless drive-through of the three new tools
 ├── vercel.json             # Static hosting config + security headers
 ├── TASKS.md                # Finished vs waiting-on-you task list
 └── manifest.webmanifest    # PWA-ish metadata
@@ -64,7 +70,7 @@ The sidebar, grid, search, category filters and `/tool/my-tool` route are all wi
 
 ```bash
 npm install     # once — pulls jsdom (dev-only; runtime stays dependency-free)
-npm test        # drives the SPA through routes/search/filters/runner/toggles
+npm test        # smoke.mjs (SPA + a11y) and tools.test.mjs (the three tools)
 ```
 
 ## ⌨️ Shortcuts

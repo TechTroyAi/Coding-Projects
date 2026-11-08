@@ -58,7 +58,7 @@ const TOOLS = [
   { id: 'snappdf', name: 'SnapPDF', tagline: 'Photos to PDF', desc: 'Turn photos into a shareable PDF, on your device.', category: 'PDF', status: 'live',
     keywords: 'pdf photos images jpg png webp convert merge print document scan pages',
     src: 'tools/snappdf/index.html', original: 'https://files.catbox.moe/ol080y.html', glyph: ICONS.image, added: 'Tool 001' },
-  { id: 'palette-lab', name: 'Palette Lab', tagline: 'Color ramps from one hex', desc: 'Turn one base color into nine shades with contrast checks.', category: 'Design', status: 'live',
+  { id: 'palette-lab', name: 'Palette Lab', tagline: 'Color ramps from one hex', desc: 'Turn one base color into ten shades with contrast checks.', category: 'Design', status: 'live',
     keywords: 'color palette ramp shades swatch hex contrast css variables design',
     src: 'tools/palette-lab/index.html', glyph: ICONS.palette, added: 'Tool 002' },
   { id: 'qr-studio', name: 'QR Studio', tagline: 'QR codes for links and Wi-Fi', desc: 'Make QR codes for links, text or Wi-Fi, downloads included.', category: 'Utilities', status: 'live',
